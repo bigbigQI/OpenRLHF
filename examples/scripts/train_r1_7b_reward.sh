@@ -28,7 +28,7 @@ python3 openrlhf/cli/train_ppo_ray.py \
     --bf16 \
     --actor_learning_rate 1e-6 \
     --init_kl_coef 0.001 \
-    --prompt_data  pe-nlp/math_level3to5_data_processed_with_qwen_prompt \
+    --prompt_data  pe-nlp/OpenR1-Math-220k-Qwen-Prompt \
     --input_key input \
     --normalize_reward \
     --flash_attn \
