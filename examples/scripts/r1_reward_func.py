@@ -125,5 +125,7 @@ def reward_func(queries, prompts, **kwargs):
             final_rewards.append(accuracy_reward)
         else:
             final_rewards.append(-0.5)
+
+    # TODO 调整奖励公式
     
     return torch.tensor(final_rewards)

@@ -40,7 +40,7 @@ class ActorPPOTrainer(PPOTrainer):
         self.remote_rm_url = remote_rm_url
         self.vllm_engines = vllm_engines
         self.critic_train_remote = critic_train_remote
-
+        # TODO
         self.experience_maker = R1RemoteExperienceMaker(
             self.actor,
             self.critic,

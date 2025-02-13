@@ -14,7 +14,7 @@ def preprocess_data(data, input_template=None, input_key="input", apply_chat_tem
             prompt = input_template.format(prompt)
     return {"input": prompt, "target": data["target"], "answer": data["ground_truth_answer"]}
 
-
+# dataset selection
 class R1Dataset(Dataset):
     """
     Dataset for R1 model
