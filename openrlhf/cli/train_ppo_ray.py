@@ -115,7 +115,7 @@ def train(args):
         critic_model = None
 
     # multiple reward models
-    if not args.remote_rm_url:
+    if not args.remote_rm_url and args.reward_pretrain:
         reward_pretrains = args.reward_pretrain.split(",")
         reward_models = []
         for _ in reward_pretrains:
