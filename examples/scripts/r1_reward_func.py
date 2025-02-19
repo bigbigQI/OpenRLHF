@@ -46,10 +46,10 @@ def calculate_accuracy_reward(predictions, solutions, do_print=False):
     
     for i, pred in enumerate(predictions):
         if "boxed" not in pred:
-            scores[i] = -2.0
+            scores[i] = -0
         else:
             if not scores[i]:
-                scores[i] = -1.0
+                scores[i] = -0
             else:
                 scores[i] = 1.0
 
@@ -107,7 +107,7 @@ def reward_func(queries, prompts, **kwargs):
 
     final_rewards = []
     for format_reward, accuracy_reward in zip(format_rewards, accuracy_rewards):
-        final_rewards.append(accuracy_reward + 0.3 * format_reward)
+        final_rewards.append(accuracy_reward + 0.1 * format_reward)
         # if accuracy_reward == 0.0:
         #     # will skip this example in reinforce algo
         #     final_rewards.append(0.0)

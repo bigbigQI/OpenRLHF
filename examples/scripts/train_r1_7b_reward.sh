@@ -1,6 +1,6 @@
 
 HDFS_HOME=.
-RUN_NAME=Qwen2.5_1.5B_distill_rloo
+RUN_NAME=Qwen2.5_1.5B_distill_rloo_8192
 
 python3 openrlhf/cli/train_ppo_ray.py \
     --advantage_estimator rloo \
@@ -15,17 +15,17 @@ python3 openrlhf/cli/train_ppo_ray.py \
     --colocate_actor_ref \
     --pretrain deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
     --save_path $HDFS_HOME/checkpoints/$RUN_NAME \
-    --micro_train_batch_size 1 \
-    --train_batch_size 128 \
-    --micro_rollout_batch_size 2 \
+    --micro_train_batch_size 2 \
+    --train_batch_size 256 \
+    --micro_rollout_batch_size 4 \
     --rollout_batch_size 128 \
-    --temperature 0.8 \
+    --temperature 0.7 \
     --n_samples_per_prompt 8 \
     --max_samples 100000 \
     --max_epochs 1 \
     --num_episodes 20 \
     --prompt_max_len 1024 \
-    --generate_max_len 14000 \
+    --generate_max_len 8192 \
     --zero_stage 3 \
     --bf16 \
     --actor_learning_rate 2e-6 \
