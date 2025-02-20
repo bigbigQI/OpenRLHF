@@ -49,7 +49,7 @@ def calculate_accuracy_reward(predictions, solutions, do_print=False):
             scores[i] = -0
         else:
             if not scores[i]:
-                scores[i] = -0
+                scores[i] = -1.0
             else:
                 scores[i] = 1.0
 
@@ -96,7 +96,7 @@ def reward_func(queries, prompts, **kwargs):
     responses = [extract_qwen_output(query) for query in queries]
 
     do_print = False
-    if random.randint(0, 3) == 1:
+    if random.randint(0, 5) == 1:
         do_print = True
         
     if do_print:
@@ -107,7 +107,7 @@ def reward_func(queries, prompts, **kwargs):
 
     final_rewards = []
     for format_reward, accuracy_reward in zip(format_rewards, accuracy_rewards):
-        final_rewards.append(accuracy_reward + 0.1 * format_reward)
+        final_rewards.append(accuracy_reward + 0.05 * format_reward)
         # if accuracy_reward == 0.0:
         #     # will skip this example in reinforce algo
         #     final_rewards.append(0.0)

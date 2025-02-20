@@ -377,6 +377,15 @@ class NaiveExperienceMaker(ABC):
             rewards = rewards - baseline
             rewards = rewards.flatten().to(device="cpu").chunk(len(experiences))
             return experiences, rewards
+
+        elif args.advantage_estimator == "grpo":
+            rewards = torch.cat([experience.info["reward"] for experience in experiences])
+            rewards = rewards.reshape(-1, args.n_samples_per_prompt).to(device="cuda")
+            mean = rewards.mean(-1, keepdim=True)
+            std = rewards.std(-1, keepdim=True)
+            rewards = (rewards - mean) / (std + 1e-8)
+            rewards = rewards.flatten().to(device="cpu").chunk(len(experiences))
+            return experiences, rewards
         # default rewards
         return experiences, [experience.info["reward"] for experience in experiences]
 
@@ -852,7 +861,7 @@ class R1RemoteExperienceMaker(RemoteExperienceMaker):
                 reward_clip_range=args.reward_clip_range,
             )
 
-            if self.advantage_estimator in ["reinforce", "rloo"]:
+            if self.advantage_estimator in ["reinforce", "rloo", "grpo"]:
                 experience.returns = self.get_cumulative_returns(
                     reward,
                     experience.action_mask,
